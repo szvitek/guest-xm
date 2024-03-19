@@ -180,63 +180,65 @@
           </ul>
         </div>
         <div class="DesktopMenu--Content">
-          <div class="DesktopMenu--Content--info">
-            <h2>{{ selectedFeature?.title }}</h2>
-            <p>{{ selectedFeature?.content }}</p>
-            <div
-              v-if="selectedFeature?.links"
-              class="DesktopMenu--Content--info--links"
-            >
-              <NuxtLink
-                class="link-item"
-                to="#"
-                v-for="link in selectedFeature?.links"
-                :key="link.id"
+          <template v-if="selectedFeature">
+            <div class="DesktopMenu--Content--info">
+              <h2>{{ selectedFeature?.title }}</h2>
+              <p>{{ selectedFeature?.content }}</p>
+              <div
+                v-if="selectedFeature?.links"
+                class="DesktopMenu--Content--info--links"
               >
-                <img :src="link.icon" />
-                <span>
-                  {{ link.text }}
+                <NuxtLink
+                  class="link-item"
+                  to="#"
+                  v-for="link in selectedFeature?.links"
+                  :key="link.id"
+                >
+                  <img :src="link.icon" />
                   <span>
-                    <svg
-                      width="10"
-                      height="11"
-                      viewBox="0 0 10 11"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M8.84822 1.27623C8.92513 1.36268 8.96825 1.47993 8.96825 1.60219V7.68684C8.96825 7.94145 8.78477 8.14786 8.55852 8.14786C8.3322 8.14786 8.14873 7.94145 8.14873 7.68684V2.7151L1.50799 10.1859C1.34796 10.366 1.08852 10.366 0.92849 10.1859C0.768465 10.0059 0.768465 9.71399 0.92849 9.534L7.56926 2.06317H3.14989C2.92358 2.06317 2.74012 1.85679 2.74012 1.60219C2.74012 1.3476 2.92358 1.1412 3.14989 1.1412H8.55852C8.66715 1.1412 8.77139 1.18978 8.84822 1.27623Z"
-                        fill="black"
-                        stroke="black"
-                        stroke-width="0.5"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
+                    {{ link.text }}
+                    <span>
+                      <svg
+                        width="10"
+                        height="11"
+                        viewBox="0 0 10 11"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M8.84822 1.27623C8.92513 1.36268 8.96825 1.47993 8.96825 1.60219V7.68684C8.96825 7.94145 8.78477 8.14786 8.55852 8.14786C8.3322 8.14786 8.14873 7.94145 8.14873 7.68684V2.7151L1.50799 10.1859C1.34796 10.366 1.08852 10.366 0.92849 10.1859C0.768465 10.0059 0.768465 9.71399 0.92849 9.534L7.56926 2.06317H3.14989C2.92358 2.06317 2.74012 1.85679 2.74012 1.60219C2.74012 1.3476 2.92358 1.1412 3.14989 1.1412H8.55852C8.66715 1.1412 8.77139 1.18978 8.84822 1.27623Z"
+                          fill="black"
+                          stroke="black"
+                          stroke-width="0.5"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
                   </span>
-                </span>
-              </NuxtLink>
+                </NuxtLink>
+              </div>
             </div>
-          </div>
-          <div class="DesktopMenu--Content--capabilities">
-            <span>Platform Capabilities</span>
-            <ul>
-              <li
-                v-for="capability in selectedFeature?.capabilities"
-                :key="capability"
-              >
-                {{ capability }}
-              </li>
-            </ul>
-          </div>
-          <div class="DesktopMenu--Content--image">
-            <img
-              :src="selectedFeature?.image.src"
-              :alt="selectedFeature?.image.text"
-            />
-            <div>{{ selectedFeature?.image.text }}</div>
-          </div>
+            <div class="DesktopMenu--Content--capabilities">
+              <span>Platform Capabilities</span>
+              <ul>
+                <li
+                  v-for="capability in selectedFeature?.capabilities"
+                  :key="capability"
+                >
+                  {{ capability }}
+                </li>
+              </ul>
+            </div>
+            <div class="DesktopMenu--Content--image">
+              <img
+                :src="selectedFeature?.image.src"
+                :alt="selectedFeature?.image.text"
+              />
+              <div>{{ selectedFeature?.image.text }}</div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -388,14 +390,14 @@ function toggleMenu(menuItem) {
 
   selectedMenuItem.value = showMenu.value && menuItem ? menuItem : null;
   selectedFeature.value =
-    showMenu.value && menuItem
-      ? pageContent.content[menuItem.features[0].name]
+    showMenu.value && !menuItem
+      ? pageContent.content[menuItem.features?.[0].name]
       : null;
 }
 
 function setSelectedMenuItemMobile(menuItem) {
   selectedMenuItem.value = menuItem;
-  setSelectedFeature(menuItem.features?.[0].name);
+  selectedFeature.value = pageContent.content[menuItem.features?.[0].name];
 }
 
 function setSelectedFeature(key) {
@@ -741,6 +743,7 @@ header {
       .DesktopMenu {
         &--features {
           min-width: 240px;
+          min-height: fit-content;
         }
 
         &--Content {
@@ -752,6 +755,7 @@ header {
             padding: 0;
             border-left: none;
             border-right: none;
+            overflow-y: auto;
           }
 
           &--image {
