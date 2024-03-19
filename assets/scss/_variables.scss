@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'Founders Grotesk';
+  src:
+    url('../font/founders-grotesk-regular.woff2') format('woff2'),
+}
+
+@font-face {
+  font-family: 'Founders Grotesk Medium';
+  src:
+    url('../font/founders-grotesk-medium.woff2') format('woff2'),
+}
+
+@font-face {
+  font-family: 'Founders Grotesk Mono';
+  src:
+    url('../font/founders-grotesk-mono-regular.woff2') format('woff2')
+}
+
+
+$color-text: #252525;
+$color-background: #f2f4f5;
+$color-purple: #5A28BE;
+$color-white: #fff;
+$color-teal: #1E465A;
+$color-separator: #407088;
+$color-separator2: #B4B4B4;
+
+$font-regular: 'Founders Grotesk', sans-serif;
+$font-medium: 'Founders Grotesk Medium', sans-serif;
+$font-mono: 'Founders Grotesk Mono', sans-serif;
