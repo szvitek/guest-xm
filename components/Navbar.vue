@@ -41,7 +41,7 @@
       </div>
 
       <!-- mobile menu -->
-      <div class="Navbar--Mobile" @click="toggleMenu()">
+      <div class="Navbar--Mobile" @click="toggleMenuMobile()">
         <svg
           v-if="!showMenu"
           width="24"
@@ -247,160 +247,170 @@
 </template>
 
 <script setup lang="ts">
-const pageContent = reactive({
+import type { Feature, MenuItem, PageContent } from "@/types/index";
+const pageContent = reactive<PageContent>({
   logo: {
-    text: 'guest',
-    badge: 'XM',
-    src: 'images/NavLogo.png',
+    src: "images/NavLogo.png",
   },
   menuItems: [
     {
-      name: 'menuItem1',
-      title: 'Platform',
+      name: "menuItem1",
+      title: "Platform",
       icon: true,
       features: [
-        { name: 'submenu1', title: 'Feedback & Sentiment Analysis' },
-        { name: 'submenu2', title: 'Brand Reputation Management' },
-        { name: 'submenu3', title: 'Market Intelligence' },
-        { name: 'submenu4', title: 'Hospitality AI' },
+        { name: "submenu1", title: "Feedback & Sentiment Analysis" },
+        { name: "submenu2", title: "Brand Reputation Management" },
+        { name: "submenu3", title: "Market Intelligence" },
+        { name: "submenu4", title: "Hospitality AI" },
       ],
       desktop: true,
       mobile: true,
     },
-    { name: 'menuItem2', title: 'Resources', desktop: true, mobile: true },
-    { name: 'menuItem3', title: 'About Us', desktop: true, mobile: true },
-    { name: 'menuItem4', title: 'Login', desktop: false, mobile: true },
+    { name: "menuItem2", title: "Resources", desktop: true, mobile: true },
+    { name: "menuItem3", title: "About Us", desktop: true, mobile: true },
+    { name: "menuItem4", title: "Login", desktop: false, mobile: true },
   ],
   actionItems: [
-    { name: 'actionItem1', title: 'Login', desktop: true, mobile: false },
+    { name: "actionItem1", title: "Login", desktop: true, mobile: false },
     {
-      name: 'actionItem2',
-      title: 'Book a Demo',
-      type: 'button',
+      name: "actionItem2",
+      title: "Book a Demo",
+      type: "button",
       desktop: true,
       mobile: true,
     },
   ],
   content: {
     submenu1: {
-      id: 'submenu1',
-      title: 'The Complete Restaurant Experience Monitoring Solution',
+      id: "submenu1",
+      title: "The Complete Restaurant Experience Monitoring Solution",
       content:
-        'Review all Guest experience feedback across all social, review, and survey channels including in-store or off- premises channels.',
+        "Review all Guest experience feedback across all social, review, and survey channels including in-store or off- premises channels.",
       links: [
-        { id: 1, icon: 'icons/survey.png', text: 'Survey' },
-        { id: 2, icon: 'icons/social.png', text: 'Social Listening' },
+        { id: 1, icon: "icons/survey.png", text: "Survey" },
+        { id: 2, icon: "icons/social.png", text: "Social Listening" },
       ],
       capabilities: [
-        'Survey & Form Management',
-        'Delivery Service Satisfaction',
-        'Net-Promoted Score (NPS)',
-        'Customer Satisfaction (CSAT)',
-        'Customer Effort (CES)',
-        'Customer Sentiment',
-        'Natural Language Processing',
-        'Social & Review Site Coverage',
+        "Survey & Form Management",
+        "Delivery Service Satisfaction",
+        "Net-Promoted Score (NPS)",
+        "Customer Satisfaction (CSAT)",
+        "Customer Effort (CES)",
+        "Customer Sentiment",
+        "Natural Language Processing",
+        "Social & Review Site Coverage",
       ],
       image: {
-        src: 'images/article1.png',
-        text: 'Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls',
+        src: "images/article1.png",
+        text: "Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls",
       },
     },
     submenu2: {
-      id: 'submenu2',
-      title: 'Reputation Management for Restaruant Chains',
-      content: 'Monitor, respond to, and promote your guest word-of-mouth',
+      id: "submenu2",
+      title: "Reputation Management for Restaruant Chains",
+      content: "Monitor, respond to, and promote your guest word-of-mouth",
       links: [
         {
           id: 3,
-          icon: 'icons/review-management.png',
-          text: 'Review Management',
+          icon: "icons/review-management.png",
+          text: "Review Management",
         },
       ],
       capabilities: [
-        'Unified Review Inbox',
-        'Real-Time Alerts',
-        'Response Templates',
-        'Review Promotions',
+        "Unified Review Inbox",
+        "Real-Time Alerts",
+        "Response Templates",
+        "Review Promotions",
       ],
       image: {
-        src: 'images/article1.png',
-        text: 'Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls',
+        src: "images/article1.png",
+        text: "Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls",
       },
     },
     submenu3: {
-      id: 'submenu3',
-      title: 'Restaurant Industry Benchmark Insights',
-      content: 'Benchmark performance to local, regional, and national peers',
+      id: "submenu3",
+      title: "Restaurant Industry Benchmark Insights",
+      content: "Benchmark performance to local, regional, and national peers",
       links: [
         {
           id: 4,
-          icon: 'icons/staffing.png',
-          text: 'Staffing & Compensation Benchmarks',
+          icon: "icons/staffing.png",
+          text: "Staffing & Compensation Benchmarks",
         },
-        { id: 5, icon: 'icons/sales.png', text: 'Sales & Traffic Benchmarks' },
+        { id: 5, icon: "icons/sales.png", text: "Sales & Traffic Benchmarks" },
       ],
       capabilities: [
-        'Local Hiring',
-        'Team Training',
-        'Turnover Insights',
-        'Staff Productivity',
-        'Customer Trends',
-        'New Market Entrants',
-        'Guest Behavior',
-        'Competitor Insights',
+        "Local Hiring",
+        "Team Training",
+        "Turnover Insights",
+        "Staff Productivity",
+        "Customer Trends",
+        "New Market Entrants",
+        "Guest Behavior",
+        "Competitor Insights",
       ],
       image: {
-        src: 'images/article1.png',
-        text: 'Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls',
+        src: "images/article1.png",
+        text: "Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls",
       },
     },
     submenu4: {
-      id: 'submenu4',
-      title: 'Data-driven insights to grow sales',
+      id: "submenu4",
+      title: "Data-driven insights to grow sales",
       content:
-        'Instantly spot areas of improvement and exceed guests’ expectations for both new and returning customers.',
+        "Instantly spot areas of improvement and exceed guests’ expectations for both new and returning customers.",
       links: [
-        { id: 6, icon: 'icons/insights.png', text: 'Actionable Insights' },
+        { id: 6, icon: "icons/insights.png", text: "Actionable Insights" },
       ],
       capabilities: [
-        'Survey & Form Management',
-        'Delivery Service Satisfaction',
-        'Net-Promoted Score (NPS)',
-        'Customer Satisfaction (CSAT)',
-        'Customer Effort (CES)',
-        'Customer Sentiment',
-        'Natural Language Processing',
-        'Social & Review Site Coverage',
+        "Survey & Form Management",
+        "Delivery Service Satisfaction",
+        "Net-Promoted Score (NPS)",
+        "Customer Satisfaction (CSAT)",
+        "Customer Effort (CES)",
+        "Customer Sentiment",
+        "Natural Language Processing",
+        "Social & Review Site Coverage",
       ],
       image: {
-        src: 'images/article1.png',
-        text: 'Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls',
+        src: "images/article1.png",
+        text: "Restaurant Sales Growth Weakest Since Last Summer as Guest Check Growth Falls",
       },
     },
   },
 });
 
 const showMenu = ref(false);
-const selectedMenuItem = ref(null);
-const selectedFeature = ref(null);
+const selectedMenuItem = ref<MenuItem | null>(null);
+const selectedFeature = ref<Feature | null>(null);
 
-function toggleMenu(menuItem) {
+function toggleMenu(menuItem: MenuItem) {
   showMenu.value = !showMenu.value;
 
   selectedMenuItem.value = showMenu.value && menuItem ? menuItem : null;
-  selectedFeature.value =
-    showMenu.value && !menuItem
-      ? pageContent.content[menuItem.features?.[0].name]
-      : null;
+  if (!showMenu.value) {
+    selectedFeature.value = null;
+  }
 }
 
-function setSelectedMenuItemMobile(menuItem) {
+function toggleMenuMobile() {
+  showMenu.value = !showMenu.value;
+  selectedMenuItem.value = pageContent.menuItems[0];
+  selectedFeature.value = showMenu.value
+    ? pageContent.menuItems[0].features
+      ? pageContent.content[pageContent.menuItems[0].features[0].name]
+      : null
+    : null;
+}
+
+function setSelectedMenuItemMobile(menuItem: MenuItem) {
   selectedMenuItem.value = menuItem;
-  selectedFeature.value = pageContent.content[menuItem.features?.[0].name];
+  selectedFeature.value = menuItem.features
+    ? pageContent.content[menuItem.features[0].name]
+    : null;
 }
 
-function setSelectedFeature(key) {
+function setSelectedFeature(key: string) {
   selectedFeature.value = pageContent.content[key];
 }
 </script>
@@ -513,7 +523,7 @@ header {
 
             &:hover:before,
             &.active:before {
-              content: ' ';
+              content: " ";
               width: 14px;
               height: 14px;
               border-style: solid;
@@ -672,9 +682,6 @@ header {
                 padding-bottom: 0;
                 border: unset;
               }
-
-              .active {
-              }
             }
           }
         }
@@ -724,8 +731,6 @@ header {
             margin-top: 20px;
             min-width: unset;
             line-height: 20px;
-            p {
-            }
             &--links > .link-item {
               font-size: 15px;
               font-weight: bold;
@@ -799,9 +804,6 @@ header {
 
           &--capabilities {
             text-align: center;
-
-            ul {
-            }
           }
 
           &--image {
